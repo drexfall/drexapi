@@ -1,0 +1,26 @@
+﻿version: "3.8"
+
+services:
+  mongo:
+    image: mongo:6.0
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+
+  web:
+    build: .
+    image: drexapi:latest
+    ports:
+      - "8000:8000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017
+      - MONGO_DB=drex
+    volumes:
+      - ./data:/app/data
+      - ./:/app:ro
+    depends_on:
+      - mongo
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
