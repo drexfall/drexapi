@@ -10,7 +10,6 @@ env:
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
-    environment: drexapi
     permissions:
       contents: read
       packages: write
@@ -25,7 +24,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.TOKEN }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
