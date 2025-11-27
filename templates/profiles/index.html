@@ -1,0 +1,228 @@
+{% extends 'core/base.html' %}
+{% load hosts %}
+{% load static %}
+
+{% block content %}
+    <dialog id="shareDialog" class="h-75 w-50 p-4">
+        <div class="modal-content h-100 vstack gap-4">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold text-primary">Share profile</h5>
+                <button type="button" class="btn-close position-absolute top-0 end-0"
+                        onclick="document.querySelector('#shareDialog').close()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="input-group mb-3">
+          <span class="input-group-text">
+              <i class="bi bi-link"></i>
+          </span>
+                    <input type="text" class="copy-input form-control disabled" aria-label=""
+                           value="{% host_url 'index' 'drprakash' host 'profiles' scheme 'https' %}">
+                    <div class="valid-feedback">
+                        URL Copied!
+                    </div>
+                </div>
+                {#                <img src="{% static 'profiles/assets/drprakash.png' %}" class='img-thumbnail col-4'>#}
+            </div>
+        </div>
+
+    </dialog>
+    <div class="row">
+        <section class="sticky-md-top h-100 col-12 col-md-4 p-4">
+            <div class="row gap-2 gap-md-0">
+                <div class="col-4 col-md-12 align-items-center d-none d-md-flex p-4 pt-0">
+                    <img class="img-fluid" src="{% static 'profiles/assets/drprakash.png' %}">
+                </div>
+                <div class="col row p-4">
+                    <div class="col-12 mb-md-4 d-flex align-items-center justify-content-between text-primary">
+                        <h2 class="fw-bold m-0"> Dr. Shri Prakash
+                        </h2>
+                        <button class="share-btn btn btn-tertiary p-0"><i class="bi bi-share"></i></button>
+                    </div>
+                    <img class="img-fluid p-5 d-md-none" src="{% static 'profiles/assets/drprakash.png' %}">
+                    <div class="row">
+                        <h6 class="col col-lg-6 col-md-12 text-primary fw-bold my-2">Designation: </h6>
+                        <span class="col col-lg-6 col-md-12 my-2">Senior Consultant (E.N.T.)</span>
+                    </div>
+                    <div class="row">
+                        <h6 class="col col-lg-6 col-md-12 text-primary fw-bold my-2">Qualification: </h6>
+                        <span class="col col-lg-6 col-md-12 my-2">M.B.B.S., M.S.</span>
+                    </div>
+                    <div class="row">
+                        <h6 class="col col-lg-6 col-md-12 text-primary fw-bold my-2">Lives in: </h6>
+                        <span class="col col-lg-6 col-md-12 my-2">Lucknow</span>
+                    </div>
+                    <div class="row">
+                        <h6 class="col col-lg-6 col-md-12 text-primary fw-bold my-2">Age: </h6>
+                        <span class="col col-lg-6 col-md-12 my-2">62</span>
+                    </div>
+                    <div class="row">
+                        <h6 class="col col-lg-6 col-md-12 text-primary fw-bold my-2">Language Proficiency: </h6>
+                        <span class="col col-lg-6 col-md-12 my-2">Hindi, English</span>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+        <div class="col">
+            <div class="row">
+                <section class="col-12 col-md-8 p-4">
+                    <div class="df-block" data-title="About">
+                        <p>Dr. Shri Prakash is a <span class="fw-bold">board certified surgeon</span> specializing in
+                            <span class="fw-bold">E.N.T.</span> With
+                            over <span class="fw-bold">30 years of clinical experience</span>, Dr. Prakash has dedicated
+                            his career to providing
+                            comprehensive, compassionate care to his patients.
+                        </p>
+                    </div>
+                </section>
+                <section class="col-12 col-md-4 p-4">
+                    <div class="df-block" data-title="Contact">
+                        <ul class="list-unstyled m-0">
+                            <li class="list-group-item pb-3">
+                                <div class="row">
+                                    <span class="col-2">
+                                        <i class="bi bi-phone"></i>
+                                    </span>
+                                    <span class="col-8">
+                                        <a href="tel:+919415481886" type="text">Call</a>
+                                    </span>
+                                    <button class="copy-btn col-2 btn btn-tertiary p-0" data-copy-text="+91 9415481886">
+                                        <i class="bi bi-copy" target="_blank"></i>
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="list-group-item pb-3">
+                                <div class="row">
+                                    <span class="col-2">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
+                                    <span class="col-8">
+                                        <a href="mailto:drprakash477@yahoo.co.in"
+                                           type="text" target="_blank">Email</a>
+                                    </span>
+                                    <button class="copy-btn col-2 btn btn-tertiary p-0"
+                                            data-copy-text="drprakash477@yahoo.co.in">
+                                        <i class="bi bi-copy"></i>
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="list-group-item pb-3">
+                                <div class="row">
+                                    <span class="col-2">
+                                        <i class="bi bi-facebook"></i>
+                                    </span>
+                                    <span class="col-8">
+                                        <a href="https://facebook.com/shri.prakash.900" type="text" target="_blank">Facebook</a>
+                                    </span>
+                                    <button class="copy-btn col-2 btn btn-tertiary p-0"
+                                            data-copy-text="https://facebook.com/shri.prakash.900">
+                                        <i class="bi bi-copy"></i>
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="list-group-item pb-3">
+                                <div class="row">
+                                    <span class="col-2">
+                                        <i class="bi bi-instagram"></i>
+                                    </span>
+                                    <span class="col-8">
+                                        <a href="https://instagram.com/drprakash477" type="text" target="_blank">Instagram</a>
+                                    </span>
+                                    <button class="copy-btn col-2 btn btn-tertiary p-0" data-copy-text="#">
+                                        <i class="bi bi-copy"></i>
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <span class="col-2">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </span>
+                                    <span class="col-8">
+                                        <a href="https://wa.me/9415481886/?text=hi" type="text"
+                                           target="_blank">Whatsapp</a>
+                                    </span>
+                                    <button class="copy-btn col-2 btn btn-tertiary p-0" data-copy-text="+91 9415481886">
+                                        <i class="bi bi-copy"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+                {#                <section class="col-12 col-md-4 p-4">#}
+                {#                    <div class="df-block" data-title=""></div>#}
+                {#                </section>#}
+                <section class="col-12 col-md-5 p-4">
+                    <div class="df-block" data-title="Work Information">
+                        <p>The hospital, originally established in 1867 and known as Colvin Hospital, is now referred to
+                            as the MLN Divisional Hospital. It was reestablished on January 26, 1974, and is also known
+                            as Kalwin Hospital. Located in the heart of Prayagraj, Uttar Pradesh, the hospital has 156
+                            sanctioned beds and 199 functional beds, including an additional 43 beds that were added for
+                            the Kumbh Mela in 2019.</p>
+                        <ul class="list-unstyled m-0">
+                            <li class="list-group-item pb-3">
+                                <div class="row">
+                                    <span class="col-2">
+                                        <i class="bi bi-geo-alt"></i>
+                                    </span>
+                                    <span class="col-8">
+                                        <a href="https://maps.app.goo.gl/w8RqXFUhniagAHW56" type="text">14, K.N,
+                                            Dr KN Katju Rd, Nakhas Kohna,
+                                            Miurabad, Prayagraj
+                                            Uttar Pradesh - 211003</a>
+                                    </span>
+                                    <button class="copy-btn col-2 btn btn-tertiary p-0" data-copy-text="14, K.N,
+                                            Dr KN Katju Rd, Nakhas Kohna,
+                                            Miurabad, Prayagraj
+                                            Uttar Pradesh - 211003">
+                                        <i class="bi bi-copy"></i>
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="list-group-item pb-3">
+                                <div class="row">
+                                    <span class="col-2">
+                                        <i class="bi bi-phone"></i>
+                                    </span>
+                                    <span class="col-8">
+                                        <a href="tel:+919415218624" type="text">Call</a>
+                                    </span>
+                                    <button class="copy-btn col-2 btn btn-tertiary p-0"
+                                            data-copy-text="+91 94152 18624">
+                                        <i class="bi bi-copy"></i>
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="list-group-item pb-3">
+                                <div class="row">
+                                    <span class="col-2">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
+                                    <span class="col-8">
+                                        <a href="mailto:mlnhospalld@gmail.com"
+                                           type="text">Email</a>
+                                    </span>
+                                    <button class="copy-btn col-2 btn btn-tertiary p-0"
+                                            data-copy-text="+91 94152 18624">
+                                        <i class="bi bi-copy"></i>
+                                    </button>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </section>
+                {#<section class="col-12 p-4">#}
+                {#                    <div class="df-block" data-title="Get in touch">#}
+                {#                        {{ contact_form }}#}
+                {#                    </div>#}
+                {#                </section>#}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+{% block scripts %}
+    <script src="{% static 'profiles/js/main.js' %}"></script>
+{% endblock scripts %}

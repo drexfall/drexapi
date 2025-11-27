@@ -1,0 +1,92 @@
+.df-block {
+    --block-padding: 2pt;
+    padding: 2em;
+    line-height: 3ch;
+    backdrop-filter: blur(4pt);
+    position: relative;
+}
+
+.df-block::after {
+    content: attr(data-title);
+    position: absolute;
+    top: 0;
+    color: var(--bs-primary);
+    padding: 0 1ch;
+    translate: 0 -50%;
+}
+
+.df-block::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: var(--bs-primary);
+    z-index: -1;
+    clip-path: polygon(2em 0, 0 0, 0 100%, 100% 100%, 100% 0, calc(3em + var(--word-length) * 1ch) 0, calc(3em + var(--word-length) * 1ch) var(--block-padding), calc(100% - var(--block-padding)) var(--block-padding), calc(100% - var(--block-padding)) calc(100% - var(--block-padding)), var(--block-padding) calc(100% - var(--block-padding)), var(--block-padding) var(--block-padding), 2em var(--block-padding));
+}
+
+a[type=text] {
+    text-decoration: none;
+    color: var(--bs-body-color);
+    transition-duration: 0.3s;
+    position: relative;
+}
+
+a[type=text]::after {
+    content: "";
+    position: absolute;
+    bottom: -0.2em;
+    width: 0;
+    height: 0.1em;
+    background: var(--bs-primary);
+    left: 0;
+    transition-duration: inherit;
+}
+
+a[type=text]:hover {
+    color: var(--bs-primary);
+}
+
+a[type=text]:hover::after {
+    width: 100%;
+}
+
+dialog {
+    background: transparent;
+    backdrop-filter: blur(5em);
+    border: 2pt solid var(--bs-primary);
+}
+
+dialog::backdrop {
+    backdrop-filter: blur(1em) brightness(80%);
+}
+
+.df-loader {
+    position: fixed;
+    z-index: 9999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100dvh;
+    width: 100dvw;
+    background: var(--bs-body-bg);
+}
+
+.df-loader svg path {
+    fill: var(--bs-body-color);
+    stroke-width: 2;
+    animation: color-fade 2s infinite;
+}
+
+@keyframes color-fade {
+    0%, 100% {
+        fill: var(--bs-primary);
+    }
+    50% {
+        fill: var(--bs-body-color);
+    }
+}
+
+/*# sourceMappingURL=components.css.map */

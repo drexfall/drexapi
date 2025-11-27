@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        xmlns:cc="http://creativecommons.org/ns#"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        viewBox="0 0 2160 2160"
+        version="1.1"
+        id="svg28"
+        sodipodi:docname="logo_light.svg"
+        inkscape:version="1.1 (c4e8f9ed74, 2021-05-24)"
+        xmlns="http://www.w3.org/2000/svg">
+    <sodipodi:namedview
+            id="namedview30"
+            pagecolor="#ffffff"
+            bordercolor="#666666"
+            borderopacity="1.0"
+            inkscape:pageshadow="2"
+            inkscape:pageopacity="0.0"
+            inkscape:pagecheckerboard="0"
+            showgrid="false"
+            inkscape:zoom="0.3837963"
+            inkscape:cx="1078.6972"
+            inkscape:cy="1082.6055"
+            inkscape:window-width="1920"
+            inkscape:window-height="975"
+            inkscape:window-x="0"
+            inkscape:window-y="36"
+            inkscape:window-maximized="1"
+            inkscape:current-layer="svg28"/>
+    <defs
+            id="defs4">
+        <style
+                id="style2">.a{stroke:#000;stroke-miterlimit:10;}.b{fill:#fff;}
+        </style>
+    </defs>
+    <title
+            id="title6">logo
+    </title>
+    <metadata
+            id="metadata929">
+        <rdf:RDF>
+            <cc:Work
+                    rdf:about="">
+                <dc:title>logo</dc:title>
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <title
+            id="title2740">drexfall logo
+    </title>
+    <path
+            style="color:#000000;fill:#ffffff;stroke-width:2.16957;-inkscape-stroke:none"
+            d="m 1543.8651,458.2356 v 58.76664 H 966.57404 V 458.2356 h 577.29106 m 56.7402,-56.74026 H 909.83399 v 172.24717 h 690.77131 z"
+            id="path2744"/>
+    <path
+            style="color:#000000;fill:#ffffff;stroke-width:2.16957;-inkscape-stroke:none"
+            d="m 1543.8651,685.15587 v 58.76664 h -339.5699 v -58.76664 h 339.5699 m 56.7402,-56.74026 H 1147.555 v 172.24717 h 453.0503 z"
+            id="path2746"/>
+    <path
+            style="color:#000000;fill:#ffffff;-inkscape-stroke:none"
+            d="m 706.65039,1015.2305 c -39.81551,0.047 -80.10451,7.6444 -118.70312,23.4277 -137.23951,56.1183 -215.80437,200.8837 -186.75391,345.1582 29.0481,144.2627 157.45394,248.1543 305.91406,248.1816 82.68552,0.2198 162.08413,-32.2114 220.51563,-90.1855 0.006,-0.01 0.01,-0.012 0.0156,-0.018 105.16963,-103.8426 121.52903,-267.501 38.84766,-389.6816 -59.42972,-87.821 -158.0852,-137.0028 -259.83594,-136.8828 z m 10.89648,60.1308 c 78.48985,3.1761 153.35808,42.5283 199.26563,110.3672 66.7756,98.6762 53.75619,229.4023 -31.32813,313.4004 l -0.0293,0.027 -0.0293,0.029 c -47.09266,46.7496 -111.26136,73.0187 -178.19336,72.8321 h -0.041 -0.0391 c -120.5872,-0.01 -223.7521,-83.7887 -247.16015,-200.041 -23.40771,-116.2507 39.31392,-232.2721 150.65625,-277.8008 34.79448,-14.2278 71.22123,-20.2581 106.89843,-18.8145 z"
+            id="path2748"/>
+    <path
+            style="color:#000000;fill:#ffffff;stroke-width:2.16957;-inkscape-stroke:none"
+            d="M 704.31986,1517.0696 A 194.14484,194.14484 0 1 1 841.614,1460.2012 192.88916,192.88916 0 0 1 704.31986,1517.0696 Z"
+            id="path2750"/>
+    <path
+            style="color:#000000;fill:#ffffff;stroke-width:2.16957;-inkscape-stroke:none"
+            d="m 912.52557,1002.1318 -0.8372,-375.7815 H 1083.9352 V 1637.1448 H 911.68837 v -7.05 c 25.0233,-10.6615 27.7774,-18.7032 56.7378,-44.3484 h 58.76513 l 0.022,-68.8677 c 0,0 127.9637,-193.3938 -0.9565,-402.3753 2.4507,-73.8002 1.0728,-106.6676 0.9465,-436.75474 h -58.76643 l -0.6029,367.36944 c 0,0 -33.0362,-31.8593 -55.3001,-42.9863 z"
+            id="path2752"/>
+</svg>

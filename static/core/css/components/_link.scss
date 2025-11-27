@@ -1,0 +1,30 @@
+a[type='text'] {
+  text-decoration: none;
+  color: var(--bs-body-color);
+  transition-duration: 0.3s;
+  position: relative;
+  //text-overflow: ellipsis;
+  //overflow: clip;
+  //display: block;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -0.2em;
+    width: 0;
+    height: 0.1em;
+    background: var(--bs-primary);
+    left: 0;
+    transition-duration: inherit;
+  }
+
+  &:hover {
+    color: var(--bs-primary);
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+
+}

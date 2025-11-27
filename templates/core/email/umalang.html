@@ -1,0 +1,26 @@
+{% extends 'core/email/base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card mt-3">
+                    <div class="card-header text-white">
+                        <h3 class="card-title">New message from UMalang</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Name:</strong> {{ name }}</li>
+                            <li class="list-group-item"><strong>Email:</strong> {{ email }}</li>
+                            <li class="list-group-item"><strong>Message:</strong> {{ message }}</li>
+                        </ul>
+                        <p
+                                class="card-text mt-3">Please feel free to reply directly to this email to get in touch
+                            with the sender.</p>
+                        <p class="card-text text-muted">Best Regards,</p>
+                        <p class="card-text text-muted">drexfall</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

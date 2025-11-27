@@ -1,0 +1,26 @@
+<html lang="en">
+<body>
+
+<input type="file" accept="application/pdf" multiple>
+<div id="result"></div>
+<script>
+    document.querySelector("input").addEventListener("input", (e) => {
+        let form = new FormData()
+        let files = Array.from(document.querySelector("input").files)
+        files.forEach(file => {
+            form.append(file.name, file)
+
+        })
+        fetch("read/",
+            {
+                method: "post",
+                body: form
+            }).then(response => {
+            return response.json()
+        }).then(result => {
+            document.querySelector("#result").innerHTML = JSON.stringify(result)
+        })
+    })
+</script>
+</body>
+</html>

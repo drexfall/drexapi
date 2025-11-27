@@ -1,0 +1,49 @@
+$body-bg: #FFEDDF;
+$body-bg-dark: #0d0e1b;
+$primary: #dfaf12;
+
+@import "bootstrap/bootstrap";
+
+.df-bg {
+
+  height: 100dvh;
+  position: fixed;
+  mix-blend-mode: soft-light;
+  background-size: contain;
+  width: 100dvw;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+body {
+  --header-height: 5em;
+  --footer-height: 4em;
+  --grad-x: 50%;
+  --grad-y: 50%;
+  --radius: 30%;
+  background: radial-gradient(circle at var(--grad-x) var(--grad-y), rgb(var(--bs-body-bg-rgb), 75%) 0, rgb(var(--bs-body-bg-rgb), 100%) var(--radius)) fixed;
+
+  header {
+    height: var(--header-height);
+
+    #logo {
+      path {
+        fill: var(--bs-body-color);
+        stroke-width: 2;
+      }
+    }
+  }
+
+  main {
+    //min-height: calc(100dvh - var(--header-height) - var(--footer-height));
+  }
+
+  footer {
+    height: var(--footer-height);
+  }
+}
+
+
+#alertContainer {
+  backdrop-filter: blur(1em)
+}

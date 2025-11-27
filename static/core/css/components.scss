@@ -1,0 +1,41 @@
+@import "components/_block";
+@import "components/_link";
+
+dialog {
+  background: transparent;
+  backdrop-filter: blur(5em);
+  border: 2pt solid var(--bs-primary);
+
+  &::backdrop {
+    backdrop-filter: blur(1em) brightness(80%);
+  }
+}
+
+.df-loader {
+  position: fixed;
+  z-index: 9999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100dvh;
+  width: 100dvw;
+  //backdrop-filter: blur(10em);
+  background: var(--bs-body-bg);
+
+  svg {
+    path {
+      fill: var(--bs-body-color);
+      stroke-width: 2;
+      animation: color-fade 2s infinite;
+    }
+  }
+}
+
+@keyframes color-fade {
+  0%, 100% {
+    fill: var(--bs-primary)
+  }
+  50% {
+    fill: var(--bs-body-color)
+  }
+}
