@@ -1,5 +1,4 @@
 {% extends 'core/base.html' %}
-{% load hosts %}
 {% load static %}
 
 {% block content %}
@@ -16,7 +15,7 @@
               <i class="bi bi-link"></i>
           </span>
                     <input type="text" class="copy-input form-control disabled" aria-label=""
-                           value="{% host_url 'index' 'drprakash' host 'profiles' scheme 'https' %}">
+                           value="{{ request.scheme }}://{{ request.get_host }}{% url 'index' profile_id %}">
                     <div class="valid-feedback">
                         URL Copied!
                     </div>

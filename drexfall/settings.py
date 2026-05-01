@@ -11,14 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
-from datetime import timedelta
 from pathlib import Path
 
 import nltk
-import requests
 from corsheaders.defaults import default_headers
 from dotenv import load_dotenv
-from drexfall.jwt_conf import SIMPLE_JWT
 from imagekitio import ImageKit
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,92 +29,109 @@ load_dotenv()
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "RENDER" not in os.environ
+DEBUG = not os.getenv("PRODUCTION", "RENDER")
+
 
 DOMAIN = os.getenv('DOMAIN')
-PORT = os.getenv('PORT')
-ALLOWED_HOSTS = [f".{DOMAIN}"]
-DOMAIN_DATA = requests.get(
-	url="https://api.render.com/v1/services/srv-co4h0mq1hbls73bt47f0/custom-domains?limit=20",
-	headers={
-		"accept": "application/json",
-		"authorization": f"Bearer {os.getenv('RENDER_BEARER_TOKEN')}"
-	}
-)
-
+PORT = 8000
+ALLOWED_HOSTS = [f".{DOMAIN}", "127.0.0.1", "localhost"]
 RENDER_EXTERNAL_HOSTNAME = os.getenv('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
 	ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-
 # Application definition
 
 INSTALLED_APPS = [
-	'core.apps.CoreConfig',
-	'scan.apps.ScanConfig',
-	'profiles.apps.ProfilesConfig',
-	'submit.apps.SubmitConfig',
-	'api.apps.ApiConfig',
-	'django_hosts',
-	"django.contrib.admin",
-	"django.contrib.auth",
-	"django.contrib.contenttypes",
-	"django.contrib.sessions",
-	"django.contrib.messages",
-	"django.contrib.staticfiles",
-	'rest_framework',
-	'rest_framework_simplejwt.token_blacklist',
-	"corsheaders",
+    'django_hosts',
+    'core.apps.CoreConfig',
+    'scan.apps.ScanConfig',
+    'profiles.apps.ProfilesConfig',
+    'submit.apps.SubmitConfig',
+    'accounts.apps.AccountsConfig',
+    'projects.apps.ProjectsConfig',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    'rest_framework',
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
-	'django_hosts.middleware.HostsRequestMiddleware',
-	"django.middleware.security.SecurityMiddleware",
-	"corsheaders.middleware.CorsMiddleware",
-	'whitenoise.middleware.WhiteNoiseMiddleware',
-	"django.contrib.sessions.middleware.SessionMiddleware",
-	"django.middleware.common.CommonMiddleware",
-	"django.middleware.csrf.CsrfViewMiddleware",
-	"django.contrib.auth.middleware.AuthenticationMiddleware",
-	"django.contrib.messages.middleware.MessageMiddleware",
-	"django.middleware.clickjacking.XFrameOptionsMiddleware",
-	'django_hosts.middleware.HostsResponseMiddleware'
+    "django_hosts.middleware.HostsRequestMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_hosts.middleware.HostsResponseMiddleware",
 ]
-DEFAULT_HOST = 'core'
 ROOT_URLCONF = "drexfall.urls"
-ROOT_HOSTCONF = 'drexfall.hosts'
-PARENT_HOST = f"{DOMAIN}:{PORT}" if DEBUG else DOMAIN
+ROOT_HOSTCONF = "drexfall.hosts"
+DEFAULT_HOST = "root"
 REST_FRAMEWORK = {
-	# Use Django's standard `django.contrib.auth` permissions,
-	# or allow read-only access for unauthenticated users.
-	# 'DEFAULT_PERMISSION_CLASSES': [
-	#     'rest_framework.permissions.IsAuthenticatedOrReadOnly'
-	# ],
-	'DEFAULT_AUTHENTICATION_CLASSES': [
-		'rest_framework_simplejwt.authentication.JWTAuthentication',
-	],
-	'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-	'PAGE_SIZE': 10,
-	'DEFAULT_PARSER_CLASSES': (
-		'rest_framework.parsers.JSONParser',
-		'rest_framework.parsers.FormParser',
-		'rest_framework.parsers.MultiPartParser',
-	),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'accounts.authentication.Auth0Authentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+    ),
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '60/min',
+        'user': '600/min',
+    },
 }
 
+# --- Auth0 ---
+AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN', '')
+AUTH0_AUDIENCE = os.getenv('AUTH0_AUDIENCE', '')
+AUTH0_CLIENT_ID = os.getenv('AUTH0_CLIENT_ID', '')
+AUTH0_MGMT_CLIENT_ID = os.getenv('AUTH0_MGMT_CLIENT_ID', '')
+AUTH0_MGMT_CLIENT_SECRET = os.getenv('AUTH0_MGMT_CLIENT_SECRET', '')
+AUTH0_CLAIMS_NAMESPACE = os.getenv('AUTH0_CLAIMS_NAMESPACE', 'https://drexapi/')
+
+# --- Mongo ---
+MONGO_URI = os.getenv('MONGO_URI', '')
+MONGO_DB = os.getenv('MONGO_DB', 'drexapi_projects')
+
+# --- Celery ---
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', CELERY_BROKER_URL)
+CELERY_TASK_ALWAYS_EAGER = os.getenv('CELERY_TASK_ALWAYS_EAGER', 'false').lower() == 'true'
+CELERY_TIMEZONE = 'UTC'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json']
+
 TEMPLATES = [
-	{
-		"BACKEND": "django.template.backends.django.DjangoTemplates",
-		"DIRS": [BASE_DIR / "templates"],
-		"APP_DIRS": True,
-		"OPTIONS": {
-			"context_processors": [
-				"django.template.context_processors.debug",
-				"django.template.context_processors.request",
-				"django.contrib.auth.context_processors.auth",
-				"django.contrib.messages.context_processors.messages",
-			],
-		},
-	},
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+        },
+    },
 ]
 
 WSGI_APPLICATION = "drexfall.wsgi.application"
@@ -126,32 +140,32 @@ WSGI_APPLICATION = "drexfall.wsgi.application"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.postgresql_psycopg2',
-		'NAME': os.getenv('DATABASE_NAME'),
-		'USER': os.getenv('DATABASE_USER'),
-		'PASSWORD': os.getenv('DATABASE_PASSWORD'),
-		'HOST': os.getenv('DATABASE_HOST'),
-		'PORT': os.getenv('DATABASE_PORT'),
-	}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('DATABASE_NAME'),
+        'USER': os.getenv('DATABASE_USER'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD'),
+        'HOST': os.getenv('DATABASE_HOST'),
+        'PORT': os.getenv('DATABASE_PORT'),
+    }
 }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-	{
-		"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-	},
-	{
-		"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-	},
-	{
-		"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-	},
-	{
-		"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-	},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
 ]
 
 # Internationalization
@@ -170,19 +184,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-	os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
 # This production code might break development mode, so we check whether we're in DEBUG mode
 if not DEBUG:  # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
-	STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-	# Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
-	# and renames the files with unique names for each version to support long-term caching
-	STORAGES = {
-		"staticfiles": {
-			"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-		},
-	}
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
+    # and renames the files with unique names for each version to support long-term caching
+    STORAGES = {
+        "staticfiles": {
+            "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        },
+    }
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -199,19 +213,58 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 SENDER_EMAIL = os.getenv('SENDER_EMAIL')
 
 # CORS settings
-#CORS_ALLOWED_ORIGINS = os.getenv('TRUSTED_ORIGINS').split(",")
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_HEADERS = (
-	*default_headers,
-)
+_cors_origins = os.getenv('CORS_ALLOWED_ORIGINS', '').strip()
+if _cors_origins:
+    CORS_ALLOWED_ORIGINS = [o.strip() for o in _cors_origins.split(',') if o.strip()]
+else:
+    CORS_ALLOW_ALL_ORIGINS = DEBUG
+CORS_ALLOW_HEADERS = (*default_headers,)
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = os.getenv('TRUSTED_ORIGINS').split(",")
-CSRF_COOKIE_DOMAIN = os.getenv('COOKIE_DOMAINS').split(",")
+_trusted_origins = os.getenv('TRUSTED_ORIGINS', '')
+CSRF_TRUSTED_ORIGINS = [o for o in _trusted_origins.split(',') if o]
+_cookie_domains = os.getenv('COOKIE_DOMAINS', '')
+CSRF_COOKIE_DOMAIN = [d for d in _cookie_domains.split(',') if d] or None
 
 imagekit = ImageKit(
-	private_key=os.getenv('IMAGEKIT_PRIVATE'),
-	public_key=os.getenv('IMAGEKIT_PUBLIC'),
-	url_endpoint=os.getenv('IMAGEKIT_URL')
+    private_key=os.getenv('IMAGEKIT_PRIVATE')
 )
 
 nltk.download('stopwords')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '[{levelname}] {asctime} {module} {process:d} {thread:d}\n{message}\n',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG' if DEBUG else 'WARNING',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

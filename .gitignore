@@ -2,5 +2,6 @@
 /lenv
 .env
 /staticfiles
+/static/dist
 *.ignore.*
 .idea
