@@ -8,7 +8,6 @@ urlpatterns = [
     path("", include("core.urls")),
     path("scan/", include("scan.urls")),
     path("profiles/", include("profiles.urls")),
-    path("submit/", include("submit.urls")),
     # SPA catch-all — must be last
     re_path(r"^(?!static/|media/).*$", spa),
 ]

@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'scan.apps.ScanConfig',
     'profiles.apps.ProfilesConfig',
-    'submit.apps.SubmitConfig',
     'accounts.apps.AccountsConfig',
     'projects.apps.ProjectsConfig',
     "django.contrib.admin",

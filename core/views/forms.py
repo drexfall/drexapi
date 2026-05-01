@@ -7,14 +7,12 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
-from submit.forms import *
-
 
 @api_view(['GET'])
 def form(request, portal_name, form_name):
 	if portal_name == 'umalang' and form_name == 'contact':
-		contact_form = UMalangContactForm()
-		return Response({"form": contact_form.as_div()}, status=status.HTTP_200_OK)
+
+		return Response({"form": {}}, status=status.HTTP_200_OK)
 	return Response({"message": "Cannot find form"}, status=status.HTTP_404_NOT_FOUND)
 
 
