@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: 1080px 1350px; margin: 0; }
+  html, body { margin: 0; padding: 0; width: 1080px; height: 1350px; background: {{ theme.bg_color }}; color: {{ theme.text_color }}; font-family: {{ theme.font_family }}; }
+  .slide { position: relative; width: 1080px; height: 1350px; padding: 90px 80px; box-sizing: border-box; }
+  .frame { position: absolute; inset: 30px; border: 3px solid {{ theme.accent_color }}; }
+  .inner-frame { position: absolute; inset: 50px; border: 1px solid {{ theme.accent_color }}33; }
+  .cat-bar { position: absolute; top: 30px; left: 30px; right: 30px; height: 6px; background: {{ category_color }}; }
+  .overline { font-size: 22px; letter-spacing: 0.35em; text-transform: uppercase; color: {{ theme.accent_color }}; margin-bottom: 40px; }
+  h1.title { font-size: 78px; line-height: 1.08; font-weight: 700; margin: 0 0 40px 0; color: {{ theme.text_color }}; }
+  h2.heading { font-size: 44px; letter-spacing: 0.18em; text-transform: uppercase; color: {{ theme.accent_color }}; margin: 0 0 36px 0; font-weight: 600; }
+  .subtitle { font-size: 32px; line-height: 1.4; font-style: italic; color: {{ theme.muted_color }}; }
+  .body { font-size: 30px; line-height: 1.5; color: {{ theme.text_color }}; }
+  .facts { list-style: none; padding: 0; margin: 0; }
+  .facts li { font-size: 28px; line-height: 1.45; padding: 18px 0 18px 36px; position: relative; border-bottom: 1px solid {{ theme.accent_color }}22; }
+  .facts li:before { content: "◆"; color: {{ theme.accent_color }}; position: absolute; left: 0; top: 18px; font-size: 22px; }
+  .sources-list { list-style: none; padding: 0; margin: 0; }
+  .sources-list li { font-size: 32px; padding: 14px 0; border-bottom: 1px solid {{ theme.accent_color }}33; letter-spacing: 0.06em; }
+  .meta { position: absolute; bottom: 60px; left: 80px; right: 80px; display: flex; justify-content: space-between; font-size: 20px; color: {{ theme.muted_color }}; letter-spacing: 0.2em; text-transform: uppercase; }
+  .cred { color: {{ theme.accent_color }}; }
+  .pageno { position: absolute; bottom: 60px; right: 80px; font-size: 22px; letter-spacing: 0.3em; color: {{ theme.accent_color }}; }
+  .center { text-align: center; }
+  .stat-num { font-size: 220px; font-weight: 700; line-height: 1; color: {{ theme.accent_color }}; margin-bottom: 30px; }
+  .divider { width: 80px; height: 2px; background: {{ theme.accent_color }}; margin: 30px 0; }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="cat-bar"></div>
+  <div class="frame"></div>
+  <div class="inner-frame"></div>
+
+  {% if slide.type == "hook" %}
+    <div class="overline">{{ category|upper }}</div>
+    <h1 class="title">{{ slide.title }}</h1>
+    <div class="divider"></div>
+    <div class="subtitle">{{ slide.subtitle }}</div>
+  {% elif slide.type == "narrative" %}
+    <h2 class="heading">{{ slide.heading }}</h2>
+    <div class="body">{{ slide.body }}</div>
+  {% elif slide.type == "facts" %}
+    <h2 class="heading">{{ slide.heading }}</h2>
+    <ul class="facts">
+      {% for item in slide.get("items", []) %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+  {% elif slide.type == "sources" %}
+    <h2 class="heading">{{ slide.heading }}</h2>
+    <ul class="sources-list">
+      {% for s in slide.get("sources", []) %}<li>{{ s }}</li>{% endfor %}
+    </ul>
+  {% else %}
+    <div class="body">{{ slide.get("body", slide.get("text", "")) }}</div>
+  {% endif %}
+
+  <div class="meta">
+    <span>{{ category|upper }}</span>
+    <span class="cred">CREDIBILITY {{ "%.1f"|format(credibility) }}/10</span>
+  </div>
+  <div class="pageno">{{ "%02d"|format(order + 1) }} / {{ "%02d"|format(total) }}</div>
+</div>
+</body>
+</html>
